@@ -8,15 +8,15 @@ var bodyParser = require('body-parser');
 //连接区块链的web3接口
 var Web3 = require('web3');
 var web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider('http://47.106.92.62:8545'));
+web3.setProvider(new web3.providers.HttpProvider('xxxx'));
 
 //连接数据库
 var mysql = require('mysql');
 var connection = mysql.createConnection({
 
-    host:'120.79.227.88',
+    host:'tttttt',
     user     : 'root',
-    password : '123456',
+    password : 'wssss',
     database : 'chain_lives'
 });
 
