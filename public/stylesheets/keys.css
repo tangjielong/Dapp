@@ -1,0 +1,106 @@
+html{font-size:62.5%;}
+* {
+	margin:0 auto;
+}
+#keys_msg_box {
+	margin-top:1.7rem;
+}
+.keys_msg {
+	font-size:1.4rem;
+	color:#999;
+	height:2.5rem;
+	line-height: 2.5rem;
+	text-align: center;
+}
+.keys_key {
+	margin-top:1.8rem;
+	line-height: 3.3rem;
+	font-size:1.2rem;
+	color:#333;
+	text-align: center;
+}
+.copy_box {	
+	padding:1.4rem 0 2.1rem 0;
+	height:2.5rem;
+	line-height: 2.5rem;
+	position: absolute;
+	right:1rem;
+}
+.copy {
+	background: url(../images/copy@2x.png) no-repeat left center;
+	background-size:22%;
+	height:2.5rem;
+	line-height: 2.5rem;
+	color:#999;
+	font-size:1.4rem;
+	padding-left:2rem;
+}
+.tip {
+	height:5.9rem;
+	line-height: 5.9rem;
+	color:#ff6e95;
+	margin-top:5.95rem;
+	text-align: left;
+	padding-left:2rem;
+	font-size:1.4rem;
+}
+#ok_btn {
+	position: absolute;	
+	bottom:1.1rem;
+	left:1rem;
+	right:1rem;
+}
+.ok_p {
+	color:#999;
+	font-size:1.4rem;
+	text-align: center;
+	height:3.4rem;
+	line-height: 3.4rem;
+	margin-bottom:1.8rem;
+}
+.ok_btn {
+	background: #6E8DFF;
+	color:#fff;
+	font-size:1.4rem;
+	text-align: center;
+	height:4.1rem;
+	line-height: 4.1rem;
+	border-radius: 0.5rem;
+}
+.ok_tip {
+	position: fixed;
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index:10;
+	background: rgba(0,0,0,0.5);
+	display: none;
+}
+.ok_tip_box {
+	position: absolute;
+	left:50%;
+	top:50%;
+	margin-top:-8.7rem;
+	margin-left:-37.065%;
+	width:74.13%;
+	height:17.4rem;
+	background: #fff;
+	border-radius: 0.5rem;
+}
+.ok_img {	
+	margin-top:3.3rem;
+	margin-left:42.27%;
+	margin-bottom:1.9rem;
+	width:4rem;
+	height:4rem;	
+}
+.ok_tip_box p {
+	height:2.7rem;
+	line-height: 2.7rem;
+	text-align: center;
+	color:#333;
+	font-size:1.4rem;
+}

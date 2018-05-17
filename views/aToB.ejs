@@ -1,0 +1,60 @@
+<!doctype html>
+<html id="app">
+<head> 
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>A转账到B</title>  	
+	<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+	<link rel="apple-touch-icon" href="apple-touch-icon.png">				
+</head>
+
+<body>
+	<table border="" cellspacing="" cellpadding="">
+		<tr>
+			<th>用户ID</th>
+			<th>提取金额</th>			
+			<th>剩余金额</th>
+			<th>提取时间</th>
+			<th>审核</th>
+			<th>操作</th>
+		</tr>
+	</table>
+
+	<div onclick="get()">
+		dddd
+	</div>
+
+
+	<script src="javascripts/jquery.min.js"></script>
+	<script type="text/javascript" src="javascripts/key.js"></script> 
+	<script>
+	function get(){
+		$.ajax({
+            type:"post",
+            url:"/examine",
+            data:{              
+				keys:"0xd1b038617a80b7a3e6d3c8f46bba82415b442c96",
+                account:1,
+				id:"16"
+            },
+            success:function(data){             
+                console.log(data);
+                if(data.resultCode==200){
+                    
+                    console.log(data);               
+                    
+                   
+                }
+                
+            },
+            error:function(err){
+                
+            }
+        });
+	}
+</script>
+</body>
+
+
+
+</html>

@@ -1,0 +1,103 @@
+<!doctype html>
+<html id="app">
+<head> 
+    <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title><%= title %></title>  	
+		<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+		<link rel="apple-touch-icon" href="apple-touch-icon.png">
+		<link rel="stylesheet" href="stylesheets/keys.css" />
+		<script type="text/javascript">
+			(function() {
+			    var newRem = function() {
+			        var html = document.documentElement;
+			        html.style.fontSize = html.getBoundingClientRect().width / 37.5 + 'px';
+			    };
+			    window.addEventListener('resize', newRem, false);
+			    newRem();
+			})();
+		</script>
+</head>
+
+<body>
+	
+	<div id="keys_msg_box">
+		<p class="keys_msg">您的账户秘钥已生成</p>
+		<p class="keys_key">生成秘钥中。。。</p>
+		<div class="copy_box">  			
+			<p class="copy" data-clipboard-target=".keys_key" onclick="copy()">  				
+				一键复制
+			</p>
+		</div>
+		<div class="tip">
+			<p>注：点击复制按钮将您的秘钥自行保存好。</p>
+		</div>
+	</div>
+	<div id="ok_btn">
+		<p class="ok_p">我已将账户秘钥保存好！</p>
+		<p class="ok_btn" onclick="gotohlz()">开启我的活力口袋</p>
+	</div>
+	<div class="ok_tip">
+		<div class="ok_tip_box">
+			<img src="images/cancel@2x.png" alt="" class="ok_img"/>
+			<p>秘钥已复制</p>
+			<p>粘贴至您要保存的地方</p>
+		</div>
+	</div>
+
+  	<script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/lightwallet.min.js"></script>
+    <script src="javascripts/copy.js"></script>
+    <script type="text/javascript" src="javascripts/web3.min.js"></script>
+	<script type="text/javascript" src="javascripts/hooked-web3-provider.js"></script>
+	<script type="text/javascript" src="javascripts/async.js"></script>
+	<script type="text/javascript" src="javascripts/key.js"></script> 
+<script type="text/javascript">
+	var userid;
+	new ClipboardJS('.copy');
+	
+	$(function(){
+		UrlSearch();
+	})
+	
+	function copy(){
+		$(".ok_tip").show();
+		
+		setTimeout(function(){
+			$(".ok_tip").hide();
+		},2000)
+	}
+	
+	 
+	function UrlSearch() {
+		   var name,value;
+		   var str=location.href; //取得整个地址栏
+		   var num=str.indexOf("?")
+		   var urlValue = [];
+		   str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+		
+		   var arr=str.split("&"); //各个参数放到数组里
+		    console.log(arr)
+		   for(var i=0;i < arr.length;i++){
+		        num=arr[i].indexOf("=");
+		        if(num>0){
+		             name=arr[i].substring(0,num);
+		             value=arr[i].substr(num+1);
+		             this[name]=value;
+
+		             urlValue.push(value);		             
+		             userid = urlValue[1];		                       
+		        }
+		        
+		   }
+		   console.log(urlValue[0]);
+		   $(".keys_key").html(decode(urlValue[0]));
+		}
+	
+			
+	function gotohlz(){
+		location.href="hlb?userid="+userid;
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!doctype html>
+<html id="app">
+<head> 
+    <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title><%= title %></title>  	
+		<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport"/>
+		<link rel="apple-touch-icon" href="apple-touch-icon.png">
+		<link rel="stylesheet" href="stylesheets/hlz.css" />
+		<script type="text/javascript">
+			(function() {
+			    var newRem = function() {
+			        var html = document.documentElement;
+			        html.style.fontSize = html.getBoundingClientRect().width / 37.5 + 'px';
+			    };
+			    window.addEventListener('resize', newRem, false);
+			    newRem();
+			})();
+		</script>
+</head>
+
+<body>
+	
+	<div class="switch_btn">
+  		<div class="switch switch_active">A口袋</div>
+  		<div class="switch switch_b ">B口袋</div>
+  	</div>
+  	
+  	<div class="B" style="display: none;">
+  		<div class="hlz_logo">
+	  		<img src="images/hlz@2x.png" alt="" class="hlz_logo_img"/>
+	  	</div>  	
+	  	<div class="hlz_number">
+	  		活力贝：<span class="hlz_b">0</span>
+	  	</div>
+	  	<div class="hlz_input_box">
+	  		<div class="input_box">
+	  			<div class="input_label">
+	  				你的密钥
+	  			</div>  			
+	  			<input type="text" name="" id="mePassword" value="" placeholder="输入对方密钥" class="input"/>  			
+	  		</div>
+	  		<div class="input_box">
+	  			<div class="input_label">
+	  				对方密钥
+	  			</div>  			
+	  			<input type="text" name="" id="toPassword" value="" placeholder="输入您的密钥" class="input"/>  			
+	  		</div>
+	  		<div class="input_box">
+	  			<div class="input_label">
+	  				转赠数值
+	  			</div>  			
+	  			<input type="text" name="" id="b_count" value="" placeholder="输入您要转赠的数值" class="input"/>  			
+	  		</div>
+	  	</div>
+	  	<div class="ok_tip">
+	  		<div class="disflex" style="display:flex;">
+	  			<p class="ok_btn ok_btn_a" onclick="send('1')">转赠</p>
+	  			<p class="ok_btn ok_btn_a gotoA" onclick="send('2')">转回A钱包</p>
+	  		</div>
+	  		<!--<p class="ok_btn">转赠</p>
+	  		<p class="ok_btn">转赠</p>-->
+	  		<p class="ok_tips_p">注：转赠活力贝将会从您的口袋扣取小额活力贝作为手续费，B口袋活力贝只用于转赠。</p>
+	  	</div>  		
+  	</div>
+  	
+  	<div class="A">
+  		<div class="hlz_logo">
+	  		<img src="images/hlz@2x.png" alt="" class="hlz_logo_img"/>
+	  	</div>  	
+	  	<div class="hlz_number">
+	  		活力贝：<span class="hlz_a">0</span>
+	  	</div>
+	  	<div class="hlz_input_box">
+	  		<div class="input_box">
+	  			<div class="input_label">
+	  				提取数额
+	  			</div>  			
+	  			<input type="text" name="" id="A_count" value="" placeholder="输入您要提取的活力贝数额" class="input"/>  			
+	  		</div>
+	  		<div class="input_box">
+	  			<div class="input_label">
+	  				你的密钥
+	  			</div>  			
+	  			<input type="text" name="" id="A_keys" value="" placeholder="输入您的账户密钥" class="input"/>  			
+	  		</div>
+	  		<div class="input_box_p">
+	  			<div class="input_label">
+	  				
+	  			</div>  			
+	  			
+		  		注：账户密码和平台支付密码一致
+		  		 			
+	  		</div>
+	  	</div>
+	  	<div class="ok_tip">
+	  		<p class="ok_btn" onclick="extract()">提取</p>
+	  		<p class="ok_tips_p">注：A口袋活力贝仅用于平台内使用，输入支付密码即可提取到B口袋用于转赠给他人。</p>
+	  	</div>  		
+  	</div>
+  	
+  	<div class="ok_tip_tan gotoA_ok">
+  		<div class="ok_tip_box">  			
+  			<p class="tilte">请输入口袋密码</p>
+  			<input type="text" class="ok_input" id="password"/>
+  			<div class="btnGroup">
+  				<p class= "cause" onclick="hide()">取消</p>
+  				<p class="ok_submit" onclick="sendEth()">确定</p>
+  			</div>
+  		</div>
+  	</div>
+  	
+	<div class="ok_tip_tan extract_ok_check">
+		<div class="ok_tip_box extract_ok_box">
+			等待后台审核通过..
+		</div>
+	</div>
+	
+	<div class="ok_tip_tan extract_ok">
+		<div class="ok_tip_box extract_ok_box">
+			提取成功
+		</div>
+	</div>
+  	
+  	<!-- <p class="getPassword" onclick="getpassword()">找回密钥</p> -->
+  	<input type="hidden" id="hid" value=""/>
+
+  	<script src="javascripts/jquery.min.js"></script>
+	<script type="text/javascript" src="javascripts/key.js"></script> 
+<script type="text/javascript">
+	var userid;
+	var Url = "http://120.79.227.88:8080";
+	var judgeState;
+	$(function(){
+		UrlSearch();
+		
+		$(".switch").on("click",function(e){
+		
+		$(".switch").removeClass("switch_active");
+		$(e.currentTarget).addClass("switch_active");
+		
+		if($(e.currentTarget).index()==0){
+				$(".A").show();
+				$('.B').hide();
+			}else if($(e.currentTarget).index()==1){
+				$(".B").show();
+				$('.A').hide();
+			}
+		})
+		
+		
+	})
+	function hide(){
+		$(".gotoA_ok").hide();
+	}
+	
+	//	A=>B
+	function extract(){
+		
+		var a_count = $("#A_count").val();
+		var keys = $("#A_keys").val();
+		
+		$.ajax({
+			type:"post",			
+			url:Url+"/TALENTS_CHAIN/user/ltc/turn",
+			data:{
+				accountAddress:keys,
+				cowryChange :a_count,
+				userId:userid
+			},
+			success:function(data){
+				
+				console.log(data);
+				
+				$(".extract_ok").show();
+				//弹出success
+				setTimeout(function(){
+							$(".extract_ok").hide();
+					},1500);
+				query();
+			},
+			error:function(){
+				
+			}
+			
+		});
+		
+	}
+	
+	function passwordShow(){
+		//TODO:调取后台数据 获取秘钥
+		$(".gotoA_ok").show();			
+	}
+
+	function query(){
+		$.get('/exchange/'+userid,function(res){
+			console.log(res.result.eth);
+			
+			$(".hlz_a").html(res.result.hlb);
+			$(".hlz_b").html(res.result.eth);			
+			$("#A_keys").val(res.result.site);
+			$("#mePassword").val(res.result.site);
+			
+		})
+	}
+	
+	function UrlSearch() {
+		   var name,value;
+		   var str=location.href; //取得整个地址栏
+		   var num=str.indexOf("?");
+		   str=str.substr(num+1); //取得所有参数   stringvar.substr(start [, length ]
+		
+		   var arr=str.split("&"); //各个参数放到数组里
+		    console.log(arr)
+		   for(var i=0;i < arr.length;i++){
+		        num=arr[i].indexOf("=");
+		        if(num>0){
+		             name=arr[i].substring(0,num);
+		             value=arr[i].substr(num+1);
+		             this[name]=value;
+		             
+		             userid = value;
+		             //解锁获取eth
+		             query();
+		        }
+		   }
+		}
+	
+	var account1;
+	var account2;
+	var amount;
+	var psw;
+	
+	
+	function send(state){
+		
+		if(state=='1'){
+			judgeState="1";
+		}else if(state=='2'){
+			judgeState="2";
+		}
+
+		account1 = $("#mePassword").val();
+		account2 = $("#toPassword").val();
+		amount  = $("#b_count").val();
+				
+		if(account1==""){
+			alert("请输入您的密钥");
+			return false;
+		}
+		
+		if(account2==""){
+			alert("请输入对方密钥");
+			return false;
+		}
+		
+		if(amount==""){
+			alert("请输入转赠数值");
+			return false;
+		}
+		
+		$(".gotoA_ok").show();
+		
+	}
+	
+	function sendEth (){
+		
+		psw = $("#password").val();
+		
+		if(psw==""){
+			alert("请输入交易密码");
+			return false;
+		}		
+		
+		$.ajax({
+			type:"post",
+			url:"/send",
+			data:{				
+				account1:account1,
+				account2:account2,
+				amount:amount,
+				psw:psw,
+				userid:userid,
+				state:judgeState
+			},
+			success:function(data){				
+				console.log(data);
+				if(data.resultCode==200){
+					
+					$("#mePassword").val('');
+					$("#toPassword").val("");
+					$("#b_count").val("");
+					$("#password").val("");
+					hide();
+					$(".hlz_b").html(data.result.eth);					
+					
+					$(".extract_ok").show();
+				}
+				
+			},
+			error:function(err){
+				
+			}
+		});
+	}
+</script>
+</body>
+</html>
